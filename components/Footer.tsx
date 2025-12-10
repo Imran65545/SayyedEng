@@ -10,7 +10,7 @@ export function Footer() {
           <div>
             <h3 className="text-lg sm:text-xl mb-4 font-semibold">SayyedEngWorks</h3>
             <p className="text-gray-300 text-xs sm:text-sm">
-              We provide stainless products ranging from household items to industry standard parts.
+             Your trusted partner for premium stainless steel solutions. We engineer custom industrial components and manufacture superior SS household products, serving clients across India with unmatched durability and grade
             </p>
           </div>
 

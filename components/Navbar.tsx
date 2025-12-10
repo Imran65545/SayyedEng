@@ -17,17 +17,17 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav 
+    <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/80 backdrop-blur-md border-b border-neutral-200 shadow-sm' 
+        isScrolled
+          ? 'bg-white/80 backdrop-blur-md border-b border-neutral-200 shadow-sm'
           : 'bg-white border-b border-neutral-200'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-2xl font-bold text-neutral-900 tracking-tight">
-            Sayyed Eng Works
+            SayadEngWorks
           </Link>
 
           <div className="flex items-center gap-8">
