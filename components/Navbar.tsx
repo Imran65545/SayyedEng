@@ -32,7 +32,7 @@ export default function Navbar() {
           className={`font-bold tracking-tight transition-all duration-300 text-neutral-900 ${isScrolled
             ? 'text-3xl'
             : 'text-2xl'
-            }`  }
+            }`}
         >
           SayyedEngWorks
         </Link>
@@ -68,13 +68,16 @@ export default function Navbar() {
           </Link>
 
           {/* CTA Button */}
-          <button className={`group inline-flex items-center gap-2 px-6 py-2 rounded-lg font-semibold transition-all duration-300 ${isScrolled
-            ? 'bg-neutral-900 text-white hover:bg-neutral-800 shadow-sm'
-            : 'bg-neutral-900 text-white hover:bg-neutral-800 shadow-md'
-            }`}>
-            Get in Touch
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          <Link href="/contact">
+
+            <button className={`group inline-flex items-center gap-2 px-6 py-2 rounded-lg font-semibold transition-all duration-300 ${isScrolled
+              ? 'bg-neutral-900 text-white hover:bg-neutral-800 shadow-sm'
+              : 'bg-neutral-900 text-white hover:bg-neutral-800 shadow-md'
+              }`}>
+              Get in Touch
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -112,10 +115,10 @@ export default function Navbar() {
             >
               Products
             </Link>
-            <button className="w-full  bg-neutral-900 text-white hover:bg-neutral-800 font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2">
+            <Link href="/contact" className="w-full  bg-neutral-900 text-white hover:bg-neutral-800 font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2" onClick={() => setIsMenuOpen(false)}>
               Get in Touch
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </Link>
           </div>
         </div>
       )}

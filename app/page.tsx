@@ -1,5 +1,6 @@
 "use client";
 import Reveal from '../components/Reveal';
+import Link from 'next/link';
 import { Wrench, Box, ShoppingCart, Gauge, ArrowRight, CheckCircle, Zap } from 'lucide-react';
 
 export default function Home() {
@@ -20,9 +21,9 @@ export default function Home() {
           </div>
 
           <div className=" reveal-stagger relative z-10 text-center px-6 max-w-6xl">
-            {/* <div className="inline-block mb-6 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
+            <div className="inline-block mb-6 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
               <p className="text-white/90 text-sm font-medium tracking-wide">PRECISION METAL FABRICATION</p>
-            </div> */}
+            </div>
 
             <h1 className="reveal text-6xl md:text-8xl font-bold text-white mb-6 tracking-tight leading-none">
               Sayyed Engineering Works
@@ -49,7 +50,7 @@ export default function Home() {
           </div>
 
           {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce ">
             <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
               <div className="w-1 h-2 bg-white rounded-full"></div>
             </div>
@@ -207,10 +208,12 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  <button className="mt-8 w-full bg-white text-neutral-900 py-4 rounded-xl font-semibold hover:bg-neutral-100 transition-colors flex items-center justify-center gap-2">
-                    Get in Touch
-                    <ArrowRight className="w-5 h-5" />
-                  </button>
+                  <Link  href="/contact">
+                    <button className="mt-8 w-full bg-white text-neutral-900 py-4 rounded-xl font-semibold hover:bg-neutral-100 transition-colors flex items-center justify-center gap-2">
+                      Get in Touch
+                      <ArrowRight className="w-5 h-5" />
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
