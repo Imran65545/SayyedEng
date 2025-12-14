@@ -1,11 +1,14 @@
-import nodemailer from 'nodemailer';
-import validator from 'validator';
-import { NextResponse } from 'next/server';
-import mongoose from 'mongoose';
-import Contact from '../../../models/Contact';
+import nodemailer from "nodemailer";
+import validator from "validator";
+import { NextResponse } from "next/server";
+import mongoose from "mongoose";
+import Contact from "../../../models/Contact";
 
 function getSmtpConfig() {
-  if (process.env.MAIL_DRIVER === 'json' || String(process.env.DEMO_EMAIL || '').toLowerCase() === 'true') {
+  if (
+    process.env.MAIL_DRIVER === "json" ||
+    String(process.env.DEMO_EMAIL || "").toLowerCase() === "true"
+  ) {
     return { jsonTransport: true };
   }
 
@@ -15,26 +18,32 @@ function getSmtpConfig() {
 
   const host = process.env.SMTP_HOST;
   const port = Number(process.env.SMTP_PORT || 587);
-  const secure = String(process.env.SMTP_SECURE || '').toLowerCase() === 'true' || port === 465;
+  const secure =
+    String(process.env.SMTP_SECURE || "").toLowerCase() === "true" ||
+    port === 465;
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
 
   if (!host || !user || !pass) {
     const missing = [
-      ['SMTP_HOST', host],
-      ['SMTP_USER', user],
-      ['SMTP_PASS', pass],
+      ["SMTP_HOST", host],
+      ["SMTP_USER", user],
+      ["SMTP_PASS", pass],
     ]
       .filter(([, v]) => !v)
       .map(([k]) => k)
-      .join(', ');
-    const error = new Error(`SMTP configuration missing required env: ${missing}`);
-    error.code = 'SMTP_CONFIG_MISSING';
+      .join(", ");
+    const error = new Error(
+      `SMTP configuration missing required env: ${missing}`
+    );
+    error.code = "SMTP_CONFIG_MISSING";
     throw error;
   }
 
-  if (['localhost', '127.0.0.1', '::1'].includes(host)) {
-    console.warn('SMTP_HOST points to localhost. Ensure a local SMTP server is running or set real provider envs.');
+  if (["localhost", "127.0.0.1", "::1"].includes(host)) {
+    console.warn(
+      "SMTP_HOST points to localhost. Ensure a local SMTP server is running or set real provider envs."
+    );
   }
 
   return {
@@ -50,22 +59,29 @@ function createTransport() {
   return nodemailer.createTransport(config);
 }
 
-async function sendContactEmails(transporter, { name, email, message, entryId }) {
-  const from = process.env.MAIL_FROM || process.env.SMTP_USER || 'no-reply@example.com';
-  const companyEmail = process.env.COMPANY_EMAIL || process.env.ADMIN_EMAIL || from;
+async function sendContactEmails(
+  transporter,
+  { name, email, message, phone, company, entryId }
+) {
+  const from =
+    process.env.MAIL_FROM || process.env.SMTP_USER || "no-reply@example.com";
+  const companyEmail =
+    process.env.COMPANY_EMAIL || process.env.ADMIN_EMAIL || from;
 
-  const safeMessage = String(message).replace(/</g, '&lt;');
+  const safeMessage = String(message).replace(/</g, "&lt;");
 
   // 1. Create the email to the user
   const userMail = {
     from,
     to: email,
-    subject: 'We received your message – SayyedEngWorks',
+    subject: "We received your message – SayyedEngWorks",
     html: `
       <p>Hi ${name},</p>
       <p>Thanks for contacting SayyedEngWorks. We received your message and will get back to you soon.</p>
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
+      ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
+      ${company ? `<p><strong>Company:</strong> ${company}</p>` : ""}
       <p><strong>Message:</strong></p>
       <blockquote>${safeMessage}</blockquote>
       <p>Regards,<br/>SayyedEngWorks Team</p>
@@ -81,11 +97,13 @@ async function sendContactEmails(transporter, { name, email, message, entryId })
     subject: `New contact form submission from ${name}`,
     html: `
       <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Message:</strong></p>
-      <blockquote>${safeMessage}</blockquote>
-      // <p><em>Stored with id: ${entryId}</em></p>
-      <hr />
+<p><strong>Email:</strong> ${email}</p>
+${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
+${company ? `<p><strong>Company:</strong> ${company}</p>` : ""}
+<p><strong>Message:</strong></p>
+<blockquote>${safeMessage}</blockquote>
+<p><em>Stored with id: ${entryId}</em></p>
+
       <p style="font-size: smaller; color: #666;">This is an automated notification. Please do not reply to this email.</p>
     `,
   };
@@ -98,32 +116,48 @@ async function sendContactEmails(transporter, { name, email, message, entryId })
 
   if (transporter.options && transporter.options.jsonTransport) {
     try {
-      console.log('User confirmation email (JSON):', JSON.parse(userMailInfo.message));
-      console.log('Admin notification email (JSON):', JSON.parse(adminMailInfo.message));
+      console.log(
+        "User confirmation email (JSON):",
+        JSON.parse(userMailInfo.message)
+      );
+      console.log(
+        "Admin notification email (JSON):",
+        JSON.parse(adminMailInfo.message)
+      );
     } catch (e) {
-      console.log('JSON transport message:', userMailInfo, adminMailInfo);
+      console.log("JSON transport message:", userMailInfo, adminMailInfo);
     }
   } else {
-    console.log('User confirmation email sent:', userMailInfo && userMailInfo.response);
-    console.log('Admin notification email sent:', adminMailInfo && adminMailInfo.response);
+    console.log(
+      "User confirmation email sent:",
+      userMailInfo && userMailInfo.response
+    );
+    console.log(
+      "Admin notification email sent:",
+      adminMailInfo && adminMailInfo.response
+    );
   }
 }
 
 // Mongoose connection helper
 async function connectDB() {
-  if (mongoose.connections && mongoose.connections.length > 0 && mongoose.connections[0].readyState === 1) {
+  if (
+    mongoose.connections &&
+    mongoose.connections.length > 0 &&
+    mongoose.connections[0].readyState === 1
+  ) {
     return;
   }
   const mongoUri = process.env.MONGODB_URI;
   if (!mongoUri) {
-    console.warn('MONGODB_URI not set. Database operations will be skipped.');
+    console.warn("MONGODB_URI not set. Database operations will be skipped.");
     return null;
   }
   try {
     await mongoose.connect(mongoUri);
-    console.log('MongoDB connected');
+    console.log("MongoDB connected");
   } catch (error) {
-    console.error('MongoDB connection error:', error);
+    console.error("MongoDB connection error:", error);
     return null;
   }
 }
@@ -131,19 +165,29 @@ async function connectDB() {
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { name, email, message } = body || {};
+    const { name, email, message, phone, company } = body || {};
+
     const errors = [];
     if (!name || validator.isEmpty(String(name), { ignore_whitespace: true })) {
-      errors.push('Name is required.');
+      errors.push("Name is required.");
     }
-    if (!email || !validator.isEmail(String(email || ''))) {
-      errors.push('A valid email is required.');
+    if (!email || !validator.isEmail(String(email || ""))) {
+      errors.push("A valid email is required.");
     }
-    if (!message || validator.isEmpty(String(message), { ignore_whitespace: true })) {
-      errors.push('Message is required.');
+    if (
+      !message ||
+      validator.isEmpty(String(message), { ignore_whitespace: true })
+    ) {
+      errors.push("Message is required.");
+    }
+    if (phone && !validator.isMobilePhone(String(phone), "any")) {
+      errors.push("Invalid phone number.");
     }
     if (errors.length > 0) {
-      return NextResponse.json({ ok: false, error: errors.join(' ') }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, error: errors.join(" ") },
+        { status: 400 }
+      );
     }
 
     // Connect to database if MONGODB_URI is set
@@ -152,11 +196,18 @@ export async function POST(req) {
     try {
       await connectDB();
       if (mongoose.connection.readyState === 1) {
-        entry = await Contact.create({ name, email, message });
+        entry = await Contact.create({
+          name,
+          email,
+          message,
+          phone,
+          company,
+        });
+
         entryId = entry._id || entryId;
       }
     } catch (dbError) {
-      console.error('Database save error:', dbError);
+      console.error("Database save error:", dbError);
       // Continue with email sending even if DB save fails
     }
 
@@ -167,22 +218,52 @@ export async function POST(req) {
         await transporter.verify();
       }
     } catch (e) {
-      console.error('Email transport setup failed', e);
-      if (e && e.code === 'SMTP_CONFIG_MISSING') {
-        return NextResponse.json({ ok: false, error: 'Email not configured. Please set SMTP env variables.' }, { status: 500 });
+      console.error("Email transport setup failed", e);
+      if (e && e.code === "SMTP_CONFIG_MISSING") {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: "Email not configured. Please set SMTP env variables.",
+          },
+          { status: 500 }
+        );
       }
-      return NextResponse.json({ ok: false, error: 'Email service not available. Please try again later.' }, { status: 502 });
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Email service not available. Please try again later.",
+        },
+        { status: 502 }
+      );
     }
 
     try {
-      await sendContactEmails(transporter, { name, email, message, entryId });
+      await sendContactEmails(transporter, {
+        name,
+        email,
+        message,
+        phone,
+        company,
+        entryId,
+      });
+
       return NextResponse.json({ ok: true, id: entryId });
     } catch (e) {
-      console.error('Failed sending emails', e);
-      return NextResponse.json({ ok: true, id: entryId, warning: 'Saved, but failed to send email. We will follow up.' }, { status: 202 });
+      console.error("Failed sending emails", e);
+      return NextResponse.json(
+        {
+          ok: true,
+          id: entryId,
+          warning: "Saved, but failed to send email. We will follow up.",
+        },
+        { status: 202 }
+      );
     }
   } catch (err) {
-    console.error('POST /api/contact error', err);
-    return NextResponse.json({ ok: false, error: 'Internal error' }, { status: 500 });
+    console.error("POST /api/contact error", err);
+    return NextResponse.json(
+      { ok: false, error: "Internal error" },
+      { status: 500 }
+    );
   }
 }
