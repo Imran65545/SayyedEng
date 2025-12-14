@@ -51,7 +51,7 @@ export default function About() {
                 </p>
 
                 <p className="text-lg text-neutral-700 leading-relaxed">
-                  Today, our main manufacturing facility in Thane, Maharashtra employs over 20 skilled craftsmen and engineers who share our commitment to excellence. We&apos;ve completed thousands of projects, from intricate custom components to large-scale industrial installations, each one reflecting our unwavering dedication to quality.
+                  Today, our main manufacturing facility in Thane, Maharashtra employs over 10 skilled craftsmen and engineers who share our commitment to excellence. We&apos;ve completed thousands of projects, from intricate custom components to large-scale industrial installations, each one reflecting our unwavering dedication to quality.
                 </p>
 
                 <div className="flex gap-4 pt-4">
