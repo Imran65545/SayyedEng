@@ -48,7 +48,7 @@ export default function Products() {
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <h3 className="text-lg font-bold text-blue-900">{p.name}</h3>
-                    
+
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
@@ -60,7 +60,7 @@ export default function Products() {
                       <span className="font-semibold text-neutral-800">{p.amount}</span>
                     </div>
                     <div className="flex justify-between">
-                      
+
                       <span className="text-neutral-700"></span>
                     </div>
                   </div>
@@ -68,7 +68,7 @@ export default function Products() {
               </div>
             ))}
           </div>
-          
+
         </Reveal>
       </div>
     </main>
