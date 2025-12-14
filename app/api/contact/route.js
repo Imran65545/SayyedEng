@@ -50,7 +50,11 @@ function createTransport() {
   return nodemailer.createTransport(config);
 }
 
-async function sendContactEmails(transporter, { name, email, message, entryId }) {
+async function sendContactEmails(
+  transporter,
+  { name, email, message, phone, company, entryId }
+) {
+
   const from = process.env.MAIL_FROM || process.env.SMTP_USER || 'no-reply@example.com';
   const companyEmail = process.env.COMPANY_EMAIL || process.env.ADMIN_EMAIL || from;
 
@@ -65,9 +69,12 @@ async function sendContactEmails(transporter, { name, email, message, entryId })
       <p>Hi ${name},</p>
       <p>Thanks for contacting SayyedEngWorks. We received your message and will get back to you soon.</p>
       <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Message:</strong></p>
-      <blockquote>${safeMessage}</blockquote>
+<p><strong>Email:</strong> ${email}</p>
+${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
+${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
+<p><strong>Message:</strong></p>
+<blockquote>${safeMessage}</blockquote>
+
       <p>Regards,<br/>SayyedEngWorks Team</p>
       <hr />
       <p style="font-size: smaller; color: #666;">This is an automated message. Please do not reply to this email.</p>
@@ -81,11 +88,13 @@ async function sendContactEmails(transporter, { name, email, message, entryId })
     subject: `New contact form submission from ${name}`,
     html: `
       <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Message:</strong></p>
-      <blockquote>${safeMessage}</blockquote>
-      // <p><em>Stored with id: ${entryId}</em></p>
-      <hr />
+<p><strong>Email:</strong> ${email}</p>
+${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
+${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
+<p><strong>Message:</strong></p>
+<blockquote>${safeMessage}</blockquote>
+<p><em>Stored with id: ${entryId}</em></p>
+
       <p style="font-size: smaller; color: #666;">This is an automated notification. Please do not reply to this email.</p>
     `,
   };
@@ -131,7 +140,8 @@ async function connectDB() {
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { name, email, message } = body || {};
+    const { name, email, message, phone, company } = body || {};
+
     const errors = [];
     if (!name || validator.isEmpty(String(name), { ignore_whitespace: true })) {
       errors.push('Name is required.');
@@ -142,9 +152,14 @@ export async function POST(req) {
     if (!message || validator.isEmpty(String(message), { ignore_whitespace: true })) {
       errors.push('Message is required.');
     }
+    if (phone && !validator.isMobilePhone(String(phone), 'any')) {
+      errors.push('Invalid phone number.');
+    }
     if (errors.length > 0) {
       return NextResponse.json({ ok: false, error: errors.join(' ') }, { status: 400 });
     }
+    
+
 
     // Connect to database if MONGODB_URI is set
     let entry = null;
@@ -152,7 +167,14 @@ export async function POST(req) {
     try {
       await connectDB();
       if (mongoose.connection.readyState === 1) {
-        entry = await Contact.create({ name, email, message });
+        entry = await Contact.create({
+          name,
+          email,
+          message,
+          phone,
+          company,
+        });
+
         entryId = entry._id || entryId;
       }
     } catch (dbError) {
@@ -175,7 +197,15 @@ export async function POST(req) {
     }
 
     try {
-      await sendContactEmails(transporter, { name, email, message, entryId });
+      await sendContactEmails(transporter, {
+        name,
+        email,
+        message,
+        phone,
+        company,
+        entryId,
+      });
+
       return NextResponse.json({ ok: true, id: entryId });
     } catch (e) {
       console.error('Failed sending emails', e);
@@ -185,4 +215,7 @@ export async function POST(req) {
     console.error('POST /api/contact error', err);
     return NextResponse.json({ ok: false, error: 'Internal error' }, { status: 500 });
   }
+
+
 }
+
