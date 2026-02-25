@@ -3,7 +3,14 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import Reveal from '@/components/Reveal';
+import { set } from 'mongoose';
 
+
+const clearSubmitMessage = (setSubmitStatus: React.Dispatch<React.SetStateAction<{ type: 'success' | 'error' | null; message: string }>>) => {
+  setTimeout(() => {
+    setSubmitStatus({ type: null, message: '' });
+  }, 3000);
+}
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -48,11 +55,14 @@ export default function Contact() {
           message: 'Thank you! Your message has been sent. We will get back to you within 24 hours.',
         });
         setFormData({ name: '', email: '', phone: '', company: '', message: '' });
+        clearSubmitMessage(setSubmitStatus);
+
       } else {
         setSubmitStatus({
           type: 'error',
           message: data.error || 'Failed to send message. Please try again later.',
         });
+        clearSubmitMessage(setSubmitStatus);
       }
     } catch (error) {
       setSubmitStatus({
@@ -275,7 +285,7 @@ export default function Contact() {
 
 
         {/* Quick Response Banner */}
-        <section className="bg-gradient-to-br from-neutral-900 to-neutral-800 py-16 px-6">
+        {/* <section className="bg-gradient-to-br from-neutral-900 to-neutral-800 py-16 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h3 className="text-3xl font-bold text-white mb-4">
               Need Immediate Assistance?
@@ -291,7 +301,7 @@ export default function Contact() {
               +91 98675 38527
             </a>
           </div>
-        </section>
+        </section> */}
 
       </Reveal>
     </main>
