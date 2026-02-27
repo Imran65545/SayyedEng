@@ -194,7 +194,7 @@ export default function About() {
         </section>
 
         {/* Certifications Section */}
-        <section className=" reveal-stagger py-24 px-6 bg-white">
+        {/* <section className=" reveal-stagger py-24 px-6 bg-white">
           <div className="reveal max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <div className="inline-block px-4 py-2 bg-neutral-100 rounded-full mb-6">
@@ -250,7 +250,7 @@ export default function About() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Industries Served */}
         <section className="reveal-stagger py-24 px-6 bg-gradient-to-b from-neutral-50 to-white">

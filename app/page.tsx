@@ -57,25 +57,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* Value Proposition Strip */}
-        {/* <section className="bg-neutral-900 py-8">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="flex items-center gap-4 justify-center md:justify-start">
-                <CheckCircle className="w-6 h-6 text-emerald-400 flex-shrink-0" />
-                <p className="text-white font-medium">ISO-Certified Quality</p>
-              </div>
-              <div className="flex items-center gap-4 justify-center md:justify-start">
-                <Zap className="w-6 h-6 text-amber-400 flex-shrink-0" />
-                <p className="text-white font-medium">Rapid Turnaround Times</p>
-              </div>
-              <div className="flex items-center gap-4 justify-center md:justify-start">
-                <Wrench className="w-6 h-6 text-blue-400 flex-shrink-0" />
-                <p className="text-white font-medium">Expert Craftsmanship</p>
-              </div>
-            </div>
-          </div>
-        </section> */}
+       
 
         <section className="reveal-stagger py-32 px-6 bg-gradient-to-b from-white to-neutral-50">
           <div className="max-w-7xl mx-auto">

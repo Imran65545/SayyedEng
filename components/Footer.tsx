@@ -22,7 +22,7 @@ export function Footer() {
               <a href="#" className="bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg transition-colors">
+              <a target='_blank' href="https://www.youtube.com/@SayyedEngWorks" className="bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg transition-colors">
                 <Youtube className="w-5 h-5" />
               </a>
               {/* <a href="#" className="bg-neutral-800 hover:bg-neutral-700 p-3 rounded-lg transition-colors">
@@ -70,15 +70,15 @@ export function Footer() {
                 <span className="w-1 h-1 bg-neutral-600 rounded-full group-hover:bg-white transition-colors"></span>
                 Our Process
               </a></li>
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-2 group">
+              {/* <li><a href="#" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-2 group">
                 <span className="w-1 h-1 bg-neutral-600 rounded-full group-hover:bg-white transition-colors"></span>
                 Quality Standards
-              </a></li>
+              </a></li> */}
               {/* <li><a href="#" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-2 group">
                 <span className="w-1 h-1 bg-neutral-600 rounded-full group-hover:bg-white transition-colors"></span>
                 Case Studies
               </a></li> */}
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-2 group">
+              <li><a href="/contact" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-2 group">
                 <span className="w-1 h-1 bg-neutral-600 rounded-full group-hover:bg-white transition-colors"></span>
                 Contact
               </a></li>

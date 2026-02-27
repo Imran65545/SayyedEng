@@ -1,26 +1,20 @@
 import Reveal from '../../components/Reveal';
 import Image from 'next/image';
-import { ShoppingBag, Package } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Products() {
   const products = [
-    { name: 'Product 1', price: 2499.99, amount: 12, image: '/images/image1.jpeg' },
-    { name: 'Product 2', price: 499.5, amount: 50, image: '/images/image2.jpeg' },
-    { name: 'Product 3', price: 1599.0, amount: 8, image: '/images/image3.jpeg' },
-    { name: 'Product 4', price: 129.99, amount: 120, image: '/images/image4.jpeg' },
-    { name: 'Product 5', price: 3199.0, amount: 5, image: '/images/image5.jpeg' },
-    { name: 'Product 6', price: 899.0, amount: 24, image: '/images/image6.jpeg' },
-    { name: 'Product 7', price: 749.0, amount: 10, image: '/images/image7.jpeg' },
-    { name: 'Product 8', price: 39.95, amount: 300, image: '/images/image8.jpeg' },
-    { name: 'Product 9', price: 1899.0, amount: 15, image: '/images/image9.jpeg' },
-    { name: 'Product 10', price: 1899.0, amount: 15, image: '/images/image10.jpeg' },
-    { name: 'Product 11', price: 1899.0, amount: 15, image: '/images/image11.jpeg' },
-    { name: 'Product 12', price: 1899.0, amount: 15, image: '/images/image12.jpeg' },
-    { name: 'Product 13', price: 1899.0, amount: 15, image: '/images/image13.jpeg' },
-    { name: 'Product 14', price: 1899.0, amount: 15, image: '/images/image14.jpeg' },
-    { name: 'Product 15', price: 1899.0, amount: 15, image: '/images/image15.jpeg' },
-    { name: 'Product 16', price: 1899.0, amount: 15, image: '/images/image16.jpeg' }
+    { id: '1', name: 'Product 1', price: 2499.99, amount: 12, image: '/images/image1.jpeg' },
+    { id: '2', name: 'Product 2', price: 499.5, amount: 50, image: '/images/image2.jpeg' },
+    { id: '3', name: 'Product 4', price: 129.99, amount: 120, image: '/images/image4.jpeg' },
+    { id: '4', name: 'Product 5', price: 3199.0, amount: 5, image: '/images/image5.jpeg' },
+    { id: '5', name: 'Product 6', price: 899.0, amount: 24, image: '/images/image6.jpeg' },
+    { id: '6', name: 'Product 7', price: 749.0, amount: 10, image: '/images/image7.jpeg' },
+    { id: '7', name: 'Product 8', price: 39.95, amount: 300, image: '/images/image8.jpeg' },
+    { id: '8', name: 'Product 13', price: 1899.0, amount: 15, image: '/images/image13.jpeg' },
+    { id: '9', name: 'Product 14', price: 1899.0, amount: 15, image: '/images/image14.jpeg' },
+    { id: '10', name: 'Product 15', price: 1899.0, amount: 15, image: '/images/image15.jpeg' },
+    { id: '11', name: 'Product 16', price: 1899.0, amount: 15, image: '/images/image16.jpeg' }
   ];
 
   return (
@@ -29,7 +23,7 @@ export default function Products() {
       {/* Hero Section */}
       <Reveal>
         <section className=" reveal-stagger relative bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 py-32 px-6 overflow-hidden">
-          
+
           {/* Background blur accents */}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-0 right-1/4 w-96 h-96 bg-white rounded-full blur-3xl"></div>
@@ -78,35 +72,33 @@ export default function Products() {
                   </div>
 
                   {/* Content */}
-                  <div className="p-8">
-                    <div className="flex items-start justify-between mb-6">
+                  <div className="p-4">
+                    <div className="flex items-start justify-between mb-3">
                       <h3 className="text-xl font-bold text-neutral-900 group-hover:text-black transition-colors">
                         {p.name}
                       </h3>
-                      {/* <div className="bg-neutral-100 p-2 rounded-lg">
-                        <Package className="w-5 h-5 text-neutral-700" />
-                      </div> */}
                     </div>
 
-                    <div className="space-y-3 text-sm">
+                    {/* B2B Info Section */}
+                    <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-neutral-500">Price</span>
-                        <span className="font-semibold text-neutral-900 text-base">
-                          ₹{p.price.toFixed(2)}
+                        <span className="text-neutral-500">MOQ</span>
+                        <span className="font-semibold text-neutral-900">
+                          100 Units
                         </span>
                       </div>
-                      {/* <div className="flex justify-between">
-                        <span className="text-neutral-500">Available</span>
-                        <span className="font-semibold text-neutral-900">
-                          {p.amount} units
-                        </span>
-                      </div> */}
-                    </div>
 
+                      <div className="flex justify-between">
+                        <span className="text-neutral-500">Price</span>
+                        <span className="font-semibold text-neutral-900">
+                          {p.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' })}
+                        </span>
+                      </div>
+                    </div>
                     {/* CTA */}
-                    <Link href="/contact">
-                      <button className="mt-8 w-full py-3 rounded-xl bg-neutral-900 text-white font-semibold hover:bg-black transition-all duration-300">
-                        Get a Quote
+                    <Link href={`/products/${p.id}`} target='_blank'>
+                      <button className="mt-6 w-full py-3 rounded-xl capitalize bg-neutral-900 text-white font-semibold hover:bg-black transition-all duration-300">
+                        View Details
                       </button>
                     </Link>
                   </div>
