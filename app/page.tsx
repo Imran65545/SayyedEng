@@ -21,7 +21,7 @@ export default function Home() {
           </div>
 
           <div className=" reveal-stagger relative z-10 text-center px-6 max-w-6xl">
-            <div className="inline-block mb-6 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
+            <div className=" reveal inline-block mb-6 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
               <p className="text-white/90 text-sm font-medium tracking-wide">PRECISION METAL FABRICATION</p>
             </div>
 
@@ -38,11 +38,12 @@ export default function Home() {
             </p>
 
             <div className="reveal flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="group inline-flex items-center gap-2 bg-white text-neutral-900 px-8 py-4 text-lg font-semibold rounded-lg hover:bg-neutral-100 transition-all duration-300 shadow-xl hover:shadow-2xl ">
-                View Our Products
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-
+              <Link href="/products">
+                <button className="group inline-flex items-center gap-2 bg-white text-neutral-900 px-8 py-4 text-lg font-semibold rounded-lg hover:bg-neutral-100 transition-all duration-300 shadow-xl hover:shadow-2xl ">
+                  View Our Products
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </Link>
               <button className="inline-flex items-center gap-2 bg-transparent text-white px-8 py-4 text-lg font-semibold rounded-lg border-2 border-white/30 hover:bg-white/10 hover:border-white/50 transition-all duration-300">
                 Custom Solutions
               </button>
@@ -89,18 +90,18 @@ export default function Home() {
 
             {/* Standard Products Card */}
             <div className="reveal grid md:grid-cols-2 gap-8">
-              <div className=" group bg-white border-2 border-neutral-200 rounded-2xl p-10 hover:border-neutral-900 hover:shadow-2xl transition-all duration-300">
+              <div className="group bg-white border-2 border-neutral-200 rounded-2xl p-10 hover:border-neutral-900 hover:shadow-2xl transition-all duration-300">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="bg-neutral-100 group-hover:bg-neutral-900 p-4 rounded-xl transition-colors duration-300">
                     <Box className="w-8 h-8 text-neutral-900 group-hover:text-white transition-colors" />
                   </div>
                   <h3 className="text-3xl font-bold text-neutral-900">
-                    Standard Products
+                    Stainless Steel Hardware
                   </h3>
                 </div>
 
                 <p className="text-neutral-600 text-lg mb-8 leading-relaxed">
-                  Engineered stainless steel products for high-performance industrial applications.
+                  Premium-grade stainless steel household hardware engineered for durability, corrosion resistance, and refined aesthetics.
                 </p>
 
                 <div className="space-y-2">
@@ -109,9 +110,9 @@ export default function Home() {
                       <Box className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-semibold text-neutral-900 mb-1">Stainless Steel Trays</h4>
+                      <h4 className="text-xl font-semibold text-neutral-900 mb-1">Door & Safety Hardware</h4>
                       <p className="text-neutral-600">
-                        Food-grade and industrial trays in multiple sizes — corrosion-resistant and easy to sanitize
+                        Stainless steel door chains, safety latches, and security fittings designed for long-term performance and reliability.
                       </p>
                     </div>
                   </div>
@@ -121,9 +122,9 @@ export default function Home() {
                       <Gauge className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-semibold text-neutral-900 mb-1">Storage Tanks</h4>
+                      <h4 className="text-xl font-semibold text-neutral-900 mb-1">Bathroom Accessories</h4>
                       <p className="text-neutral-600">
-                        Pressure-tested tanks for water, chemicals, and industrial fluids with custom capacity options
+                        Towel rods, toilet paper holders, soap holders, and bathroom fittings crafted for modern interiors and moisture resistance.
                       </p>
                     </div>
                   </div>
@@ -133,84 +134,87 @@ export default function Home() {
                       <ShoppingCart className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-semibold text-neutral-900 mb-1">Heavy-Duty Carts</h4>
+                      <h4 className="text-xl font-semibold text-neutral-900 mb-1">Utility & Fixture Hardware</h4>
                       <p className="text-neutral-600">
-                        Welded stainless steel carts with reinforced frames, designed for high-load material handling
+                        Table chains, support fittings, and custom household hardware solutions manufactured with precision finishing.
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <button className="mt-8 w-full bg-neutral-900 text-white py-4 rounded-xl font-semibold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2">
-                  Browse  Products
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+                <Link href="/products">
+                  <button className="mt-8 w-full bg-neutral-900 text-white py-4 rounded-xl font-semibold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2">
+                    Browse Products
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </Link>
               </div>
 
-              {/* Custom Fabrication Card */}
+              {/* Custom Manufacturing Card */}
               <div className="reveal group bg-gradient-to-br from-neutral-900 to-neutral-800 text-white rounded-2xl p-10 hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
-                <div className=" absolute inset-0 bg-gradient-to-br from-blue-600/0 to-blue-600/10 group-hover:to-blue-600/20 transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/0 to-blue-600/10 group-hover:to-blue-600/20 transition-all duration-300"></div>
 
-                <div className="  relative z-10">
+                <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-8">
                     <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl group-hover:bg-white/20 transition-colors duration-300">
                       <Wrench className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-3xl font-bold">
-                      Custom Fabrication
+                      Custom Hardware Manufacturing
                     </h3>
                   </div>
 
                   <p className="text-neutral-300 text-lg mb-8 leading-relaxed">
-                    Precision-engineered solutions tailored to your exact specifications.
+                    Bespoke stainless steel household hardware manufactured to your specifications with precision engineering and premium finishing.
                   </p>
 
                   <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 mb-8">
-                    <h4 className="text-xl font-semibold mb-4">Our Process</h4>
+                    <h4 className="text-xl font-semibold mb-4">Our Manufacturing Process</h4>
                     <div className="space-y-3">
                       <div className="flex items-center gap-3">
                         <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full text-sm font-bold">1</span>
-                        <span className="text-neutral-300">Consultation & Design Review</span>
+                        <span className="text-neutral-300">Requirement Analysis & Technical Consultation</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full text-sm font-bold">2</span>
-                        <span className="text-neutral-300">Prototyping</span>
+                        <span className="text-neutral-300">Design & Sample Development</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full text-sm font-bold">3</span>
-                        <span className="text-neutral-300">Precision Fabrication</span>
+                        <span className="text-neutral-300">Precision Fabrication & Finishing</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full text-sm font-bold">4</span>
-                        <span className="text-neutral-300">Quality Testing & Delivery</span>
+                        <span className="text-neutral-300">Quality Inspection & Timely Delivery</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="space-y-3 mb-8">
-                    <p className="text-sm font-semibold text-neutral-400 uppercase tracking-wider">Specializations</p>
+                    <p className="text-sm font-semibold text-neutral-400 uppercase tracking-wider">Product Specializations</p>
                     <div className="grid grid-cols-2 gap-3">
                       <div className="flex items-center gap-2 text-neutral-300">
                         <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                        Architectural metalwork
+                        Door chains & latches
                       </div>
                       <div className="flex items-center gap-2 text-neutral-300">
                         <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                        Machinery components
+                        Towel rods & holders
                       </div>
                       <div className="flex items-center gap-2 text-neutral-300">
                         <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                        Custom fixtures
+                        Toilet paper holders
                       </div>
                       <div className="flex items-center gap-2 text-neutral-300">
                         <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                        Specialized equipment
+                        Custom household hardware
                       </div>
                     </div>
                   </div>
-                  <Link  href="/contact">
+
+                  <Link href="/contact">
                     <button className="mt-8 w-full bg-white text-neutral-900 py-4 rounded-xl font-semibold hover:bg-neutral-100 transition-colors flex items-center justify-center gap-2">
-                      Get in Touch
+                      Request a Quote
                       <ArrowRight className="w-5 h-5" />
                     </button>
                   </Link>
@@ -281,8 +285,8 @@ export default function Home() {
 
         </section> */}
 
-      {/* Visual Separator */}
-      {/* <div className="absolute top-0 bottom-0 left-0 right-0">
+        {/* Visual Separator */}
+        {/* <div className="absolute top-0 bottom-0 left-0 right-0">
         <div className="h-px bg-gradient-to-r from-transparent via-neutral-700 to-transparent"></div>
       </div> */}
       </Reveal>

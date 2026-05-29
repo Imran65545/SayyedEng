@@ -6,6 +6,7 @@ export default function About() {
       {/* Hero Section */}
       <Reveal>
         <section className="reveal-stagger relative bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 py-32 px-6 overflow-hidden">
+            {/* Background blur accents */}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-0 right-1/4 w-96 h-96 bg-white rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
@@ -51,7 +52,7 @@ export default function About() {
                 </p>
 
                 <p className="text-lg text-neutral-700 leading-relaxed">
-                  Today, our main manufacturing facility in Thane, Maharashtra employs over 20 skilled craftsmen and engineers who share our commitment to excellence. We&apos;ve completed thousands of projects, from intricate custom components to large-scale industrial installations, each one reflecting our unwavering dedication to quality.
+                  Today, our main manufacturing facility in Thane, Maharashtra employs over 10 skilled craftsmen and engineers who share our commitment to excellence. We&apos;ve completed thousands of projects, from intricate custom components to large-scale industrial installations, each one reflecting our unwavering dedication to quality.
                 </p>
 
                 <div className="flex gap-4 pt-4">
